@@ -43,6 +43,32 @@ header nav ul li a {
 header nav ul li a:hover {
     color: #d9a600;
 }
+.cart-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position:relative;
+}
+
+.cart-icon i {
+    font-size: 1.8em;
+    color: #333;
+}
+
+.cart-icon #cart-count {
+    position: absolute;
+    bottom: -10px;
+    left: -5px;
+    background: red;
+    color: white;
+    font-size: 0.8em;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
 
 footer {
     background-color: #333;
