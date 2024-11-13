@@ -45,16 +45,31 @@ function applyFilters() {
 }
 
 
-document.getElementById('contact-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
 
-    if (name === '' || email === '' || message === '') {
-        alert('Моля, попълнете всички полета!');
-    } else {
-        alert('Вашето съобщение беше изпратено успешно!');
-        document.getElementById('contact-form').reset();
+            if (name === '' || email === '' || message === '') {
+                alert('Моля, попълнете всички полета!');
+            } else {
+                alert('Вашето съобщение беше изпратено успешно!');
+                contactForm.reset();
+            }
+        });
     }
+});
+
+let cartCount = 0;
+
+function addToCart() {
+    cartCount++;
+    document.getElementById("cart-count").innerText = cartCount;
+}
+document.querySelectorAll('.product button').forEach(button => {
+    button.addEventListener('click', addToCart);
 });
