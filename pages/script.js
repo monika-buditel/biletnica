@@ -64,12 +64,69 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-let cartCount = 0;
 
-function addToCart() {
-    cartCount++;
-    document.getElementById("cart-count").innerText = cartCount;
+let cart = []; 
+
+const cartCount = document.getElementById("cart-count");
+const cartItems = document.getElementById("cart-items");
+const cartTotalPrice = document.getElementById("cart-total-price");
+const cartDropdown = document.querySelector(".cart-dropdown");
+
+
+function addToCart(productName, productPrice) {
+  
+    const existingProduct = cart.find(item => item.name === productName);
+    if (existingProduct) {
+        existingProduct.quantity += 1; 
+    } else {
+        cart.push({ name: productName, price: parseFloat(productPrice), quantity: 1 });
+    }
+    updateCart();
 }
-document.querySelectorAll('.product button').forEach(button => {
-    button.addEventListener('click', addToCart);
+
+
+function updateCart() {
+    cartCount.textContent = cart.length; 
+    cartItems.innerHTML = ""; 
+    let total = 0;
+
+    if (cart.length === 0) {
+        cartItems.innerHTML = "<li>Няма добавени продукти.</li>";
+    } else {
+        cart.forEach((product, index) => {
+            total += product.price * product.quantity;
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <span>${product.name} x${product.quantity}</span>
+                <span>${(product.price * product.quantity).toFixed(2)} лв.</span>
+                <button onclick="removeFromCart(${index})">✖</button>
+            `;
+            cartItems.appendChild(li);
+        });
+    }
+
+    // Обща сума
+    cartTotalPrice.textContent = `${total.toFixed(2)} лв.`;
+}
+
+// Премахване на продукт
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+}
+
+// Показване/скриване на падащото меню
+document.querySelector(".cart-icon").addEventListener("click", () => {
+    cartDropdown.style.display =
+        cartDropdown.style.display === "block" ? "none" : "block";
+});
+
+// Пример за добавяне на продукт от други елементи
+document.querySelectorAll(".product button").forEach((button) => {
+    button.addEventListener("click", () => {
+        const product = button.parentElement;
+        const productName = product.querySelector("h3").textContent;
+        const productPrice = product.querySelector("p").textContent.match(/\d+/)[0];
+        addToCart(productName, productPrice);
+    });
 });

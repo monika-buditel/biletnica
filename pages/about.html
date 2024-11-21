@@ -15,13 +15,23 @@
             <nav>
                 <ul>
                     <li><a href="home.html">Начало</a></li>
-                    <li><a href="produkti.html">Продукти</a></li>
+                    <li><a href="products.html">Продукти</a></li>
                     <li><a href="collection.html">Колекция</a></li>
                     <li><a href="about.html">За нас</a></li>
                     <li><a href="contact.html">Контакти</a></li>
                     <li class="cart-icon">
                         <i class="fas fa-shopping-cart"></i>
                         <span id="cart-count">0</span>
+                        <div class="cart-dropdown">
+                            <h4>Съдържание на количката</h4>
+                            <ul id="cart-items">
+                                <li>Няма добавени продукти.</li>
+                            </ul>
+                            <div class="cart-total">
+                                <p>Обща сума: <span id="cart-total-price">0.00 лв.</span></p>
+                                <button id="checkout-btn">Продължи към поръчка</button>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </nav>
@@ -41,6 +51,7 @@
                 Вашият браузър не поддържа видеа.
             </video>
         </section>
+     
     </main>
     <footer>
         <p>&copy; 2024 AromaWorld. Всички права запазени.</p>
