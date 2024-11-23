@@ -26,11 +26,17 @@ header .logo {
     font-size: 1.8em;
     font-weight: bold;
 }
+header .logo a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+}
 
 header nav ul {
     list-style: none;
     display: flex;
     gap: 20px;
+    transform: translateX(-70px);
 }
 
 header nav ul li a {
@@ -43,68 +49,64 @@ header nav ul li a {
 header nav ul li a:hover {
     color: #d9a600;
 }
-.cart-icon {
-    position: relative;
+.cart-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-items, .cart-summary, .checkout {
+    margin-bottom: 20px;
+}
+
+#cart-items-container {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.cart-summary p {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-#cart-count {
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    background: red;
-    color: white;
-    font-size: 12px;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-weight: bold;
+button:hover {
+    background-color: #555;
 }
 
-.cart-dropdown {
-    position: absolute;
-    top: 30px;
-    right: 0;
-    width: 300px;
-    background: white;
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: none; /* Скриване по подразбиране */
-    z-index: 1000;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
     padding: 10px;
 }
 
-.cart-dropdown h4 {
-    margin: 0 0 10px;
-    font-size: 1.1em;
-    text-align: center;
-}
-
-.cart-dropdown ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.cart-dropdown ul li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    font-size: 0.9em;
-}
-
-.cart-dropdown ul li:last-child {
-    margin-bottom: 0;
-}
-
-.cart-total {
-    margin-top: 10px;
-    text-align: right;
-    font-weight: bold;
-}
 
 #checkout-btn {
     width: 100%;
@@ -120,8 +122,6 @@ header nav ul li a:hover {
 #checkout-btn:hover {
     background: #555;
 }
-
-    
 
 footer {
     background-color: #333;

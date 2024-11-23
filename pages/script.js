@@ -64,69 +64,138 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-let cart = []; 
+   
+    const updateCartCount = () => {
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+        }
+    };
 
-const cartCount = document.getElementById("cart-count");
-const cartItems = document.getElementById("cart-items");
-const cartTotalPrice = document.getElementById("cart-total-price");
-const cartDropdown = document.querySelector(".cart-dropdown");
+   
+    const addToCart = (name, price, image) => {
+        const existingProduct = cart.find(item => item.name === name);
+
+        if (existingProduct) {
+            existingProduct.quantity += 1;
+        } else {
+            cart.push({ name, price, image, quantity: 1 });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart)); 
+        updateCartCount();
+    };
 
 
-function addToCart(productName, productPrice) {
-  
-    const existingProduct = cart.find(item => item.name === productName);
-    if (existingProduct) {
-        existingProduct.quantity += 1; 
-    } else {
-        cart.push({ name: productName, price: parseFloat(productPrice), quantity: 1 });
-    }
-    updateCart();
-}
+    document.querySelectorAll(".product button").forEach(button => {
+        button.addEventListener("click", (event) => {
+            const productElement = event.target.closest(".product");
+            const name = productElement.querySelector("h3").textContent;
+            const price = parseFloat(productElement.querySelector("p").textContent.match(/\d+/)[0]);
+            const image = productElement.querySelector("img").src;
 
+            addToCart(name, price, image);
+            alert(`${name} е добавен в количката!`);
+        });
+    });
 
-function updateCart() {
-    cartCount.textContent = cart.length; 
-    cartItems.innerHTML = ""; 
-    let total = 0;
+    
+    const updateCart = () => {
+        const cartItemsContainer = document.getElementById("cart-items-container");
+        const cartSubtotal = document.getElementById("cart-subtotal");
+        const cartDelivery = document.getElementById("delivery-cost");
+        const cartTotal = document.getElementById("cart-total");
 
-    if (cart.length === 0) {
-        cartItems.innerHTML = "<li>Няма добавени продукти.</li>";
-    } else {
-        cart.forEach((product, index) => {
-            total += product.price * product.quantity;
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <span>${product.name} x${product.quantity}</span>
-                <span>${(product.price * product.quantity).toFixed(2)} лв.</span>
-                <button onclick="removeFromCart(${index})">✖</button>
+        if (!cartItemsContainer) return; 
+
+        cartItemsContainer.innerHTML = ""; 
+        let subtotal = 0;
+
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = "<p>Вашата количка е празна.</p>";
+            cartSubtotal.textContent = "0.00 лв.";
+            cartDelivery.textContent = "0.00 лв.";
+            cartTotal.textContent = "0.00 лв.";
+            return;
+        }
+
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+
+            const cartItemHTML = `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p>${item.price.toFixed(2)} лв. / бр.</p>
+                        <p>Количество: ${item.quantity}</p>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button onclick="updateQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="updateQuantity(${index}, 1)">+</button>
+                        <button onclick="removeFromCart(${index})">Премахни</button>
+                    </div>
+                </div>
             `;
-            cartItems.appendChild(li);
+            cartItemsContainer.innerHTML += cartItemHTML;
+        });
+
+        const deliveryFee = 10.00; 
+        cartSubtotal.textContent = `${subtotal.toFixed(2)} лв.`;
+        cartDelivery.textContent = `${deliveryFee.toFixed(2)} лв.`;
+        cartTotal.textContent = `${(subtotal + deliveryFee).toFixed(2)} лв.`;
+
+        localStorage.setItem("cart", JSON.stringify(cart)); 
+    };
+
+    
+    window.updateQuantity = (index, change) => {
+        cart[index].quantity += change;
+        if (cart[index].quantity <= 0) {
+            cart.splice(index, 1); 
+        }
+        updateCart();
+        updateCartCount();
+    };
+
+   
+    window.removeFromCart = (index) => {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCart();
+        updateCartCount();
+    };
+
+  
+    const checkoutForm = document.getElementById("checkout-form");
+    if (checkoutForm) {
+        checkoutForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const paymentMethod = document.getElementById("payment-method").value;
+            const delivery = document.getElementById("delivery").value;
+            const address = document.getElementById("address").value;
+
+            if (!address) {
+                alert("Моля, въведете адрес за доставка!");
+                return;
+            }
+
+            alert(`Поръчката е направена успешно!
+            Метод на плащане: ${paymentMethod}
+            Доставка: ${delivery}
+            Адрес: ${address}`);
+
+            localStorage.removeItem("cart"); 
+            window.location.href = "home.html"; 
         });
     }
 
-    // Обща сума
-    cartTotalPrice.textContent = `${total.toFixed(2)} лв.`;
-}
-
-// Премахване на продукт
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCart();
-}
-
-// Показване/скриване на падащото меню
-document.querySelector(".cart-icon").addEventListener("click", () => {
-    cartDropdown.style.display =
-        cartDropdown.style.display === "block" ? "none" : "block";
-});
-
-// Пример за добавяне на продукт от други елементи
-document.querySelectorAll(".product button").forEach((button) => {
-    button.addEventListener("click", () => {
-        const product = button.parentElement;
-        const productName = product.querySelector("h3").textContent;
-        const productPrice = product.querySelector("p").textContent.match(/\d+/)[0];
-        addToCart(productName, productPrice);
-    });
+    updateCart(); 
+    updateCartCount(); 
 });
