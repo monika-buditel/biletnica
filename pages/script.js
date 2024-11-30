@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-   
+    
     const addToCart = (name, price, image) => {
         const existingProduct = cart.find(item => item.name === name);
 
@@ -90,12 +90,12 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCartCount();
     };
 
-
-    document.querySelectorAll(".product button").forEach(button => {
+  
+    document.querySelectorAll(".add-to-cart").forEach(button => {
         button.addEventListener("click", (event) => {
-            const productElement = event.target.closest(".product");
+            const productElement = event.target.closest(".product-card");
             const name = productElement.querySelector("h3").textContent;
-            const price = parseFloat(productElement.querySelector("p").textContent.match(/\d+/)[0]);
+            const price = parseFloat(productElement.querySelector(".price").textContent.match(/\d+/)[0]);
             const image = productElement.querySelector("img").src;
 
             addToCart(name, price, image);
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    
+  
     const updateCart = () => {
         const cartItemsContainer = document.getElementById("cart-items-container");
         const cartSubtotal = document.getElementById("cart-subtotal");
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("cart", JSON.stringify(cart)); 
     };
 
-    
+
     window.updateQuantity = (index, change) => {
         cart[index].quantity += change;
         if (cart[index].quantity <= 0) {
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCartCount();
     };
 
-   
+
     window.removeFromCart = (index) => {
         cart.splice(index, 1);
         localStorage.setItem("cart", JSON.stringify(cart));
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCartCount();
     };
 
-  
+
     const checkoutForm = document.getElementById("checkout-form");
     if (checkoutForm) {
         checkoutForm.addEventListener("submit", (e) => {

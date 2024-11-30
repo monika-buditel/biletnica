@@ -55,36 +55,111 @@
     text-align: center;
 }
 
-.product-list {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
 
-.product {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 300px;
-    margin: 20px;
-    text-align: center;
+.product-card {
+    width: 250px;
+    background-color: #fff;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
     transition: transform 0.3s ease;
 }
 
-.product:hover {
-    transform: translateY(-5px);
+.product-card:hover {
+    transform: scale(1.05); 
 }
 
-.product img {
-    width: 100%;
-    border-bottom: 1px solid #ddd;
+
+.discount-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #000;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 8px;
+    border-radius: 50%;
 }
 
-.product h3 {
-    font-size: 1.2em;
-    margin: 10px 0;
+
+.product-card img {
+    width: 100px;
+    height: auto;
+    margin: 10px auto;
 }
+
+
+.product-info h4 {
+    font-size: 0.9em;
+    color: #888;
+    margin: 5px 0;
+}
+
+.product-info h3 {
+    font-size: 1em;
+    margin: 5px 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.product-info p {
+    font-size: 0.85em;
+    color: #666;
+    margin: 5px 0;
+}
+
+.product-info .notes {
+    font-size: 0.8em;
+    color: #999;
+}
+
+.price {
+    margin-top: 10px;
+}
+
+.current-price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #d92525;
+}
+
+.old-price {
+    font-size: 0.9em;
+    color: #999;
+    text-decoration: line-through;
+    margin-left: 8px;
+}
+
+
+.add-to-cart {
+    background-color: #333;
+    color: #fff;
+    font-size: 0.9em;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart:hover {
+    background-color: #555;
+}
+
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 150px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .promotions {
     background-color: #f4f4f4;
     text-align: center;
