@@ -1,2 +1,0 @@
-# parfumi 
-website for perfumes

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../pages.css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href ="home.html">AromaWorld</a>
+        </div>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Начало</a></li>
+                    <li><a href="products.html">Продукти</a></li>
+                    <li><a href="collection.html">Колекция</a></li>
+                    <li><a href="about.html">За нас</a></li>
+                    <li><a href="contact.html">Контакти</a></li>
+                    <li class="profile-icon">
+                        <a href="login.html">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </li>
+                    <li class="cart-icon">
+                        <a href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="auth-section">
+            <h1>Вход</h1>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Имейл</label>
+                    <input type="email" id="email" name="email" placeholder="Въведете имейл адрес" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Парола</label>
+                    <input type="password" id="password" name="password" placeholder="Въведете парола" required>
+                </div>
+                <a href="forgot-password.html" class="forgot-password">Забравили сте паролата си?</a>
+                <button type="submit">Вход</button>
+            </form>
+            <p>Още ли нямате акаунт? <a href="register.html">Регистрирайте се</a></p>
+        </section>
+    </main>
+</body>
+</html>

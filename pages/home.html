@@ -12,17 +12,26 @@
 <body>
     <header>
         <div class="container">
-            <div class="logo">AromaWorld</div>
+            <div class="logo">
+                <a href ="home.html">AromaWorld</a>
+        </div>
             <nav>
                 <ul>
                     <li><a href="home.html">Начало</a></li>
-                    <li><a href="produkti.html">Продукти</a></li>
+                    <li><a href="products.html">Продукти</a></li>
                     <li><a href="collection.html">Колекция</a></li>
                     <li><a href="about.html">За нас</a></li>
                     <li><a href="contact.html">Контакти</a></li>
+                    <li class="profile-icon">
+                        <a href="login.html">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </li>
                     <li class="cart-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span id="cart-count">0</span>
+                        <a href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count">0</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -42,30 +51,57 @@
             </div>
         </section>
 
-       
         <section class="recommended">
             <h2>Топ Продукти</h2>
             <div class="product-list">
-                <div class="product">
-                    <img src="images/product1.jpg" alt="Парфюм 1">
-                    <h3>Парфюм 1</h3>
-                    <p>Цена: 120 лв.</p>
-                    <button>Добави в количката</button>
+                <div class="product-card">
+                    <div class="discount-tag">-8%</div>
+                    <img src="../images/product1.jpg" alt="Парфюм 1">
+                    <div class="product-info">
+                        <h4>Armani</h4>
+                        <h3>GIORGIO STRONGER WITH YOU INTENSELY</h3>
+                        <p>Парфюмна Вода За Мъже EDP</p>
+                        <p class="notes">Дървесни | Амброви</p>
+                        <p class="price">
+                            <span class="current-price">128,99 лв.</span>
+                            <span class="old-price">139,99 лв.</span>
+                        </p>
+                    </div>
+                    <button class="add-to-cart">Добави в количката</button>
                 </div>
-                <div class="product">
-                    <img src="images/product2.jpg" alt="Парфюм 2">
-                    <h3>Парфюм 2</h3>
-                    <p>Цена: 140 лв.</p>
-                    <button>Добави в количката</button>
+                <div class="product-card">
+                    <div class="discount-tag">-32%</div>
+                    <img src="../images/product2.jpg" alt="Парфюм 2">
+                    <div class="product-info">
+                        <h4>Versace</h4>
+                        <h3>Eros</h3>
+                        <p>Тоалетна вода за мъже EDT</p>
+                        <p class="notes">Цитрусови | Дървесни | Ароматни</p>
+                        <p class="price">   
+                            <span class="current-price">74,99 лв.</span>
+                            <span class="old-price">109,99 лв.</span>
+                        </p>
+                    </div>
+                    <button class="add-to-cart">Добави в количката</button>
                 </div>
-                <div class="product">
-                    <img src="images/product3.jpg" alt="Парфюм 3">
-                    <h3>Парфюм 3</h3>
-                    <p>Цена: 160 лв.</p>
-                    <button>Добави в количката</button>
+                <div class="product-card">
+                    <div class="discount-tag">-36%</div>
+                    <img src="../images/product3.jpg" alt="Парфюм 3">
+                    <div class="product-info">
+                        <h4>Karl Lagerfeld</h4>
+                        <h3>FOR HER</h3>
+                        <p>Парфюмна вода за жени EDP</p>
+                        <p class="notes">Цветни</p>
+                        <p class="price">
+                            <span class="current-price">51,99лв.</span>
+                            <span class="old-price">99,99 лв.</span>
+                        </p>
+                    </div>
+                    <button class="add-to-cart">Добави в количката</button>
                 </div>
             </div>
         </section>
+        
 
      
         <section class="promotions">
@@ -75,6 +111,8 @@
                 <button onclick="window.location.href=''">Виж промоцията</button>
             </div>
         </section>
+
+        
     </main>
 
     <footer>

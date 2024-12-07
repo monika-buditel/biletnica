@@ -64,12 +64,138 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-let cartCount = 0;
+document.addEventListener("DOMContentLoaded", () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-function addToCart() {
-    cartCount++;
-    document.getElementById("cart-count").innerText = cartCount;
-}
-document.querySelectorAll('.product button').forEach(button => {
-    button.addEventListener('click', addToCart);
+   
+    const updateCartCount = () => {
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+        }
+    };
+
+    
+    const addToCart = (name, price, image) => {
+        const existingProduct = cart.find(item => item.name === name);
+
+        if (existingProduct) {
+            existingProduct.quantity += 1;
+        } else {
+            cart.push({ name, price, image, quantity: 1 });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart)); 
+        updateCartCount();
+    };
+
+  
+    document.querySelectorAll(".add-to-cart").forEach(button => {
+        button.addEventListener("click", (event) => {
+            const productElement = event.target.closest(".product-card");
+            const name = productElement.querySelector("h3").textContent;
+            const price = parseFloat(productElement.querySelector(".price").textContent.match(/\d+/)[0]);
+            const image = productElement.querySelector("img").src;
+
+            addToCart(name, price, image);
+            alert(`${name} е добавен в количката!`);
+        });
+    });
+
+  
+    const updateCart = () => {
+        const cartItemsContainer = document.getElementById("cart-items-container");
+        const cartSubtotal = document.getElementById("cart-subtotal");
+        const cartDelivery = document.getElementById("delivery-cost");
+        const cartTotal = document.getElementById("cart-total");
+
+        if (!cartItemsContainer) return; 
+
+        cartItemsContainer.innerHTML = ""; 
+        let subtotal = 0;
+
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = "<p>Вашата количка е празна.</p>";
+            cartSubtotal.textContent = "0.00 лв.";
+            cartDelivery.textContent = "0.00 лв.";
+            cartTotal.textContent = "0.00 лв.";
+            return;
+        }
+
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+
+            const cartItemHTML = `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p>${item.price.toFixed(2)} лв. / бр.</p>
+                        <p>Количество: ${item.quantity}</p>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button onclick="updateQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="updateQuantity(${index}, 1)">+</button>
+                        <button onclick="removeFromCart(${index})">Премахни</button>
+                    </div>
+                </div>
+            `;
+            cartItemsContainer.innerHTML += cartItemHTML;
+        });
+
+        const deliveryFee = 10.00; 
+        cartSubtotal.textContent = `${subtotal.toFixed(2)} лв.`;
+        cartDelivery.textContent = `${deliveryFee.toFixed(2)} лв.`;
+        cartTotal.textContent = `${(subtotal + deliveryFee).toFixed(2)} лв.`;
+
+        localStorage.setItem("cart", JSON.stringify(cart)); 
+    };
+
+
+    window.updateQuantity = (index, change) => {
+        cart[index].quantity += change;
+        if (cart[index].quantity <= 0) {
+            cart.splice(index, 1); 
+        }
+        updateCart();
+        updateCartCount();
+    };
+
+
+    window.removeFromCart = (index) => {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCart();
+        updateCartCount();
+    };
+
+
+    const checkoutForm = document.getElementById("checkout-form");
+    if (checkoutForm) {
+        checkoutForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const paymentMethod = document.getElementById("payment-method").value;
+            const delivery = document.getElementById("delivery").value;
+            const address = document.getElementById("address").value;
+
+            if (!address) {
+                alert("Моля, въведете адрес за доставка!");
+                return;
+            }
+
+            alert(`Поръчката е направена успешно!
+            Метод на плащане: ${paymentMethod}
+            Доставка: ${delivery}
+            Адрес: ${address}`);
+
+            localStorage.removeItem("cart"); 
+            window.location.href = "home.html"; 
+        });
+    }
+
+    updateCart(); 
+    updateCartCount(); 
 });
