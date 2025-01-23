@@ -257,6 +257,148 @@ footer {
 .auth-section p a:hover {
     text-decoration: underline;
 }
+.register {
+    padding: 40px 20px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.register-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 50px;
+}
+
+.register-form {
+    flex: 1;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-form h1 {
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.register-form form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.register-form form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.register-form form button {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-form form button:hover {
+    background-color: #555;
+}
+
+.register-form .password-strength span {
+    font-size: 0.8em;
+    color: #999;
+}
+
+.register-form .checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.register-form .checkbox-container label {
+    font-size: 0.9em;
+    color: #333;
+}
+
+.register-form .policy-text {
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 20px;
+}
+
+.register-form .policy-text a {
+    color: #d9a600;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-form .policy-text a:hover {
+    text-decoration: underline;
+}
+
+.register-info {
+    flex: 1;
+    max-width: 400px;
+}
+
+.register-info h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.register-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.register-info ul li {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.register-info ul li:before {
+    content: '✔';
+    color: #d9a600;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+.checkbox-container input[type="checkbox"] {
+    width: 18px;
+    height: 18px; 
+    cursor: pointer;
+}
+
+.checkbox-container label {
+    cursor: pointer;
+    line-height: 1.2;
+}
+
 
 
 @media screen and (max-width: 768px) {

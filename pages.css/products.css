@@ -1,71 +1,191 @@
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+.hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    text-align: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
+    color: #fff;
 }
 
 
-.product {
-    flex: 0 0 30%; 
-    max-width: 300px;
-    box-sizing: border-box;
-    margin: 10px; 
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+
+.hero-text {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.hero button {
+    background-color: #d9a600;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero button:hover {
+  background-color: #c08900;
+}
+
+
+.recommended {
+    padding: 40000px 20px;
     text-align: center;
-    background-color: #f9f9f9;
+}
+
+
+.product-card {
+    width: 270px;
+    background-color: #fff;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
     transition: transform 0.3s ease;
 }
 
-.product img {
-    width: 100%;
+.product-card:hover {
+    transform: scale(1.05); 
+}
+
+
+.discount-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #000;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 8px;
+    border-radius: 50%;
+}
+
+
+.product-card img {
+    width: 250px;
     height: auto;
-    border-radius: 5px;
-    border-bottom: 1px solid #ddd;
+    margin: 10px auto;
 }
 
-.product h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2em;
-    margin: 10px 0;
+
+.product-info h4 {
+    font-size: 0.9em;
+    color: #888;
+    margin: 5px 0;
 }
 
-.product p {
-    font-family: 'Roboto', sans-serif;
+.product-info h3 {
     font-size: 1em;
+    margin: 5px 0;
     color: #333;
+    font-weight: bold;
 }
 
-.product button {
-    padding: 10px 20px;
+.product-info p {
+    font-size: 0.85em;
+    color: #666;
+    margin: 5px 0;
+}
+
+.product-info .notes {
+    font-size: 0.8em;
+    color: #999;
+}
+
+.price {
+    margin-top: 10px;
+}
+
+.current-price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #d92525;
+}
+
+.old-price {
+    font-size: 0.9em;
+    color: #999;
+    text-decoration: line-through;
+    margin-left: 8px;
+}
+
+
+.add-to-cart {
     background-color: #333;
     color: #fff;
+    font-size: 0.9em;
+    padding: 10px 15px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
-.product button:hover {
+.add-to-cart:hover {
     background-color: #555;
 }
 
 
-@media (max-width: 768px) {
-    .product {
-        flex: 0 0 45%; 
-        max-width: 100%;
-    }
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 65px;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-@media (max-width: 480px) {
-    .product {
-        flex: 0 0 100%; 
-        max-width: 100%;
-    }
+.promotions {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 40px 20px;
+    margin: 20px 0;
+}
+
+.promotion-banner {
+    background-color: #d9a600;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    width: 70%;
+    text-align: center;
+}
+
+.promotion-banner p {
+    font-size: 1.5em;
+    margin: 0 0 20px;
+}
+
+.promotion-banner button {
+    background-color: #fff;
+    color: #d9a600;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.promotion-banner button:hover {
+    background-color: #c08900;
+    color: #fff;
 }

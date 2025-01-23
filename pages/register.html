@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../pages.css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href ="home.html">AromaWorld</a>
+        </div>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Начало</a></li>
+                    <li><a href="products.html">Продукти</a></li>
+                    <li><a href="collection.html">Колекция</a></li>
+                    <li><a href="about.html">За нас</a></li>
+                    <li><a href="contact.html">Контакти</a></li>
+                    <li class="profile-icon">
+                        <a href="login.html">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </li>
+                    <li class="cart-icon">
+                        <a href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="register">
+        <div class="register-container">
+            <div class="register-form">
+                <h1>Регистрация</h1>
+                <form action="/submit-registration" method="post">
+                    <label for="first-name">Име</label>
+                    <input type="text" id="first-name" name="first-name" placeholder="Въведете вашето име" required>
+                    
+                    <label for="last-name">Фамилия</label>
+                    <input type="text" id="last-name" name="last-name" placeholder="Въведете вашата фамилия" required>
+                    
+                    <label for="email">Имейл</label>
+                    <input type="email" id="email" name="email" placeholder="Въведете имейл адрес" required>
+                    
+                    <label for="password">Парола</label>
+                    <input type="password" id="password" name="password" placeholder="Въведете парола" required>
+                    
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">Искам да получавам информация за нови продукти, промоции и купони за отстъпка.</label>
+                    </div>
+                    
+                    <button type="submit">Регистрирайте се</button>
+                    
+                </form>
+            </div>
+            <div class="register-info">
+                <h2>Какви са предимствата на регистрацията?</h2>
+                <ul>
+                    <li>Благодарение на запазения адрес ще оформите поръчката само с няколко клика.</li>
+                    <li>Ще имате преглед за статуса на вашата поръчка.</li>
+                    <li>Можете да разгледате историята на вашите поръчки по всяко време.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>
+    

@@ -8,18 +8,66 @@ document.querySelectorAll('.product button').forEach(button => {
 
 function startQuiz() {
     const questions = [
-        "Предпочитате ли флорални или цитрусови аромати?",
-        "Търсите ли дневен или вечерен аромат?",
-        "Желаете ли унисекс аромат?",
+        "Предпочитате ли флорални или цитрусови аромати? (флорални/цитрусови)",
+        "Търсите ли дневен или вечерен аромат? (дневен/вечерен)",
+        "Желаете ли унисекс аромат? (да/не)",
     ];
-    let result = "";
-    questions.forEach((question, index) => {
-        const answer = prompt(question);
-        result += `Въпрос ${index + 1}: ${answer}\n`;
-    });
-    alert(`Препоръчан аромат въз основа на вашите отговори:\n${result}`);
+
+    let answers = [];
+    
+    for (let i = 0; i < questions.length; i++) {
+        let answer = prompt(questions[i]);
+        if (answer === null) return; 
+        answers.push(answer.toLowerCase());
+    }
+
+    let recommendations = getRecommendations(answers);
+    displayRecommendations(recommendations);
 }
 
+function getRecommendations(answers) {
+    const perfumes = [
+        { name: "Dior J'adore", type: "флорални", time: "дневен", unisex: "не" },
+        { name: "Chanel Chance", type: "цитрусови", time: "дневен", unisex: "не" },
+        { name: "Versace Eros", type: "цитрусови", time: "вечерен", unisex: "не" },
+        { name: "Tom Ford Black Orchid", type: "флорални", time: "вечерен", unisex: "да" },
+        { name: "Acqua di Gio", type: "цитрусови", time: "дневен", unisex: "да" },
+        { name: "YSL Libre", type: "флорални", time: "дневен", unisex: "не" },
+        { name: "Creed Aventus", type: "цитрусови", time: "вечерен", unisex: "не" },
+    ];
+
+    return perfumes.filter(perfume =>
+        perfume.type === answers[0] &&
+        perfume.time === answers[1] &&
+        (answers[2] === "да" ? perfume.unisex === "да" : true)
+    );
+}
+
+function displayRecommendations(recommendations) {
+    let message = "Препоръчани парфюми въз основа на вашите отговори:\n";
+    
+    if (recommendations.length > 0) {
+        recommendations.forEach(perfume => {
+            message += `- ${perfume.name}\n`;
+        });
+    } else {
+        message += "Няма налични препоръки, моля опитайте с други критерии.";
+    }
+
+    const resultDiv = document.getElementById('recommendations');
+resultDiv.innerHTML = ""; 
+
+if (recommendations.length > 0) {
+    recommendations.forEach(perfume => {
+        const perfumeElement = document.createElement('p');
+        perfumeElement.textContent = perfume.name;
+        resultDiv.appendChild(perfumeElement);
+    });
+} else {
+    resultDiv.innerHTML = "<p>Няма налични препоръки, моля опитайте с други критерии.</p>";
+}
+
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const quizButton = document.createElement('button');
@@ -33,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     quizButton.onclick = startQuiz;
     document.body.appendChild(quizButton);
 });
+
 
 function applyFilters() {
     const category = document.getElementById('category-filter').value;
@@ -198,4 +247,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateCart(); 
     updateCartCount(); 
+});
+document.addEventListener("DOMContentLoaded", () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    
+    const updateCartCount = () => {
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+        }
+    };
+
+   
+    const addSectionProductsToCart = (sectionElement) => {
+        const productCards = sectionElement.querySelectorAll(".product-card");
+
+        productCards.forEach(card => {
+            const name = card.querySelector("h3").textContent.trim();
+            const price = parseFloat(card.querySelector(".current-price").textContent.match(/\d+\.?\d*/)[0]);
+            const image = card.querySelector("img").src;
+
+            const existingProduct = cart.find(item => item.name === name);
+
+            if (existingProduct) {
+                existingProduct.quantity += 1; 
+            } else {
+                cart.push({ name, price, image, quantity: 1 }); 
+            }
+        });
+
+        try {
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartCount();
+            alert("Продуктите от тази оферта са добавени в количката!");
+        } catch (error) {
+            console.error("Грешка при запазване в localStorage:", error);
+        }
+    };
+
+  
+    document.querySelectorAll(".promotion").forEach(section => {
+        const addButton = section.querySelector(".promotion-footer button");
+        if (addButton) {
+            addButton.addEventListener("click", () => {
+                addSectionProductsToCart(section);
+            });
+        }
+    });
+
+    updateCartCount();
 });
